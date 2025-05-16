@@ -15,6 +15,18 @@ variable "do_token" {
   sensitive   = true
 }
 
+variable "do_volume_size" {
+  description = "Volume size in gigabytes"
+  type        = number
+  default     = 5
+}
+
+variable "item_label" {
+  type        = string
+  description = "The name to apply to this DigitalOcean instance"
+  default     = "charlie"
+}
+
 variable "item_prefix" {
   description = "Namespace prefix for items"
   type        = string
