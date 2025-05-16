@@ -1,0 +1,30 @@
+---
+# Inventory Map
+all:
+  hosts:
+    # Directly-named hosts. Since Ansible is built to scale, there shouldn't be
+    # too many listed here, because using groups allows you to apply the same
+    # config to all hosts in a group equally. Included here are a few simple
+    # ones for reference. In most cases, either DNS names should resolve, or
+    # there should be a corresponding host entry in your `~/.ssh/config` file.
+    alpha:
+      # The machine from which you're running these plays
+      ansible_connection: local # …hence the local connection
+      ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    bravo:
+      # A server in the local area network zone (DNS name or IP address)
+      ansible_host: bravo.lan.domain.tld
+      ansible_user: ansiblebravo
+      ansible_ssh_private_key_file: /home/alphauser/.ssh/ansiblebravo_ed25519.sshkey
+      ansible_python_interpreter: /usr/bin/python3
+  children:
+    digitalocean:
+      children:
+        nyc1:
+          hosts:
+            charlie:
+              # A cloud server (DNS name or IP address)
+              ansible_host: charlie.nyc1.domain.tld
+              ansible_user: ansiblecharlie
+              ansible_ssh_private_key_file: /home/alphauser/.ssh/ansiblecharlie_ed25519.sshkey
+              ansible_python_interpreter: /usr/bin/python3
