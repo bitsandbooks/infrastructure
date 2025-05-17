@@ -41,8 +41,8 @@ resource "digitalocean_droplet" "tf_do_droplet" {
   monitoring        = true
   vpc_uuid          = digitalocean_vpc.tf_do_vpc.id
   depends_on = [
-    digitalocean_volume.tf_do_volume,
-    digitalocean_vpc.tf_do_vpc
+    digitalocean_vpc.tf_do_vpc,
+    digitalocean_volume.tf_do_volume
   ]
 }
 
