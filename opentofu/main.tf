@@ -44,6 +44,7 @@ resource "digitalocean_droplet" "tf_do_droplet" {
     digitalocean_vpc.tf_do_vpc,
     digitalocean_volume.tf_do_volume
   ]
+  user_data = file("${path.root}/../cloud-init/${var.item_label}.yml")
 }
 
 resource "digitalocean_volume_attachment" "do_volume_attach" {

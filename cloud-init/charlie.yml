@@ -1,0 +1,17 @@
+#cloud-config
+# vim: syntax=yaml
+# Prepare a 'charlie' server for Ansible
+ssh_pwauth: false
+users:
+  - name: ansiblecharlie
+    lock_passwd: true
+    groups: users,adm,wheel
+    gecos: "Ansible user"
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAAC3Nz..."
+    shell: /usr/bin/bash
+packages:
+  - git
+  - openssh-server
+  - python3
+  - vim
