@@ -19,17 +19,17 @@ resource "digitalocean_vpc" "tf_do_vpc" {
 }
 
 resource "digitalocean_volume" "tf_do_volume" {
-  name                     = "${var.item_prefix}-${var.do_region}-${var.item_label}"
+  name                     = "${var.item_prefix}-${var.do_region}-${var.item_label}-data"
   region                   = var.do_region
   size                     = var.do_volume_size
   initial_filesystem_type  = "ext4"
-  initial_filesystem_label = "${var.item_prefix}-${var.item_label} data"
-  description              = "${var.item_prefix}-${var.item_label} volume"
+  initial_filesystem_label = "${var.item_prefix}-${var.do_region}-${var.item_label}-data"
+  description              = "${var.item_prefix}-${var.do_region}-${var.item_label} volume"
   tags                     = ["${var.item_prefix}", "${var.item_label}"]
 }
 
 resource "digitalocean_droplet" "tf_do_droplet" {
-  name              = "${var.item_prefix}-${var.item_label}-${var.do_region}"
+  name              = "${var.item_prefix}-${var.do_region}-${var.item_label}"
   image             = var.do_image
   size              = var.do_instance_type
   region            = var.do_region
