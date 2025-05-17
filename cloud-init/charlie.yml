@@ -1,6 +1,9 @@
 #cloud-config
 # vim: syntax=yaml
 # Prepare a 'charlie' server for Ansible
+preserve_hostname: false
+fqdn: external.domain.tld
+hostname: charlie
 ssh_pwauth: false
 users:
   - name: ansiblecharlie
