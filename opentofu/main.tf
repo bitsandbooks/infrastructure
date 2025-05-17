@@ -8,7 +8,6 @@ terraform {
 }
 
 provider "digitalocean" {
-  alias = "do"
   token = var.do_token
 }
 
@@ -23,7 +22,7 @@ resource "digitalocean_volume" "tf_do_volume" {
   region                   = var.do_region
   size                     = var.do_volume_size
   initial_filesystem_type  = "ext4"
-  initial_filesystem_label = "${var.item_prefix}-${var.do_region}-${var.item_label}-data"
+  initial_filesystem_label = var.item_prefix
   description              = "${var.item_prefix}-${var.do_region}-${var.item_label} volume"
   tags                     = ["${var.item_prefix}", "${var.item_label}"]
 }
