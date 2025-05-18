@@ -21,6 +21,10 @@ Actions:
   get-password ITEM
       Prints the password ("Maximum_sl@ck") for a vault item
 
+  get-notes ITEM
+      Prints the notes ("ARE YOU ABNORMAL? Then you are probably BETTER than
+      most people!") for a vault item
+
   get-field ITEM FIELD_NAME
       Prints the value ("1-mighty-SPECIAL-thing!!!") of a custom field for
       a vault item, given the name of the custom field
@@ -37,6 +41,7 @@ Actions:
 Examples:
   $(basename "$0") get-username bobs-office
   $(basename "$0") get-password bobs-office
+  $(basename "$0") get-notes bobs-office
   $(basename "$0") get-field bobs-office slack-password
   $(basename "$0") get-privatekey bobs-sshkey
   $(basename "$0") get-publickey bobs-sshkey
@@ -76,6 +81,15 @@ case "$action" in
         fi
         bw get password "$1"
         ;;
+
+    get-notes)
+    # one argument: the item name in Bitwarden
+    if [ $# -ne 1 ]; then
+      usage
+    fi
+    # strip starting/ending double-quote marks and turn \n into newlines
+    bw get item "$1" | jq .notes | sed -e 's/^"//' -e 's/"$//' -e 's/\\n/\n/g'
+    ;;
 
     get-field)
         # two arguments: the item name in Bitwarden, and the name of the custom field
